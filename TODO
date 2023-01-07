@@ -1,0 +1,6 @@
+##List of still to do:
+
+[]  Parse date from UTC timestamp to reasonable presentation
+[]  Add documentation
+[]  Add help for parser
+[]  Catch exceptions
