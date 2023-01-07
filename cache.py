@@ -17,17 +17,16 @@ class Cache:
         with open(f"{self._file_name}.json", "w") as fh:
             return json.load(fh)
 
-    def put(self, url, last_analysis_date, last_analysis_results):
+    def put(self, url, new_information):
         """
         recieves information about url, and adds to JSON
         :param url: str
-        :param last_analysis_date: float representing UTC timestamp
-        :param last_analysis_results: str
+        :param new_information: dictionary with last analysis date, last analysis results
         """
 
         with open(f"{self._file_name}.json", "w") as fh:
             self._content = json.load(fh)
-            self._content[url] = {"last analysis date": last_analysis_date, "last analysis results": last_analysis_results}
+            self._content[url] = new_information
             self._content.json.dump(fh)
 
     def get_info(self, url: str, maxage: int):

@@ -17,18 +17,14 @@ def vt_tool_for_single_url (url: str, maxage: int, local_cache: cache.Cache, vt_
     if scan:
         vt_a.scan_url(url)
         new_info = vt_a.get_reputation_for_url(url)
-        last_analysis_date = new_info["last_analysis_date"]
-        last_analysis_results = new_info["last_analysis_results"]
-        local_cache.put(url, last_analysis_date, last_analysis_results)
+        local_cache.put(url, new_info)
 
     else:
         from_cache = local_cache.get_info(url, maxage)
 
         if from_cache is None:
             new_info = vt_a.get_reputation_for_url(url)
-            last_analysis_date = new_info["last_analysis_date"]
-            last_analysis_results = new_info["last_analysis_results"]
-            local_cache.put(url, last_analysis_date, last_analysis_results)
+            local_cache.put(url, new_info)
 
         else:
             new_info = local_cache.get_info(url, maxage)
