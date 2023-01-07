@@ -30,4 +30,3 @@ def vt_tool_for_single_url (url: str, maxage: int, local_cache: cache.Cache, vt_
             new_info = local_cache.get_info(url, maxage)
 
     return new_info
-

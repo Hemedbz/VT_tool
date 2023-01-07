@@ -12,16 +12,17 @@ if __name__ == '__main__':
     apikey = parser.args.apikey
     maxage = parser.args.maxage
 
+    if apikey is None:
+        apikey = open("vt_api.txt", "r").read()
+
     # create instances
     local_cache = Cache("vt_tool_cache")
-    if apikey:
-        vt_analyzer = VTAnalyzer(apikey)
-    else:
-        vt_analyzer = VTAnalyzer()
+    vt_analyzer = VTAnalyzer(apikey)
+
 
     # run tool - get information about urls
     with ThreadPoolExecutor as executor:
-        futures = [executor.submit(vt_tool_for_single_url(url, maxage, local_cache, vt_analyzer)) for url in urls] #TODO
+        futures = [executor.submit(vt_tool_for_single_url(url, maxage, local_cache, vt_analyzer, scan)) for url in urls]
 
     # return information to user
     print(f"\n".join(futures))

@@ -1,9 +1,10 @@
 import requests
 import base64
 
+
 class VTAnalyzer:
 
-    def __init__(self, apikey=open("vt_api.txt").read()):
+    def __init__(self, apikey):
         self._api_key = apikey
         self._header = {"accept": "application/json",
                        "content-type": "application/x-www-form-urlencoded",
@@ -37,4 +38,4 @@ class VTAnalyzer:
         last_analysis_date = data["data"]["attributes"]["last_analysis_date"]
         last_analysis_results = data["data"]["attributes"]["last_analysis_stats"]
 
-        return {"last analysis date" : last_analysis_date, "last analysis results" : last_analysis_results}
+        return last_analysis_date, last_analysis_results
