@@ -18,6 +18,13 @@ class Cache:
             return json.load(fh)
 
     def put(self, url, last_analysis_date, last_analysis_results):
+        """
+        recieves information about url, and adds to JSON
+        :param url: str
+        :param last_analysis_date: float representing UTC timestamp
+        :param last_analysis_results: str
+        """
+
         with open(f"{self._file_name}.json", "w") as fh:
             self._content = json.load(fh)
             self._content[url] = {"last analysis date": last_analysis_date, "last analysis results": last_analysis_results}
@@ -33,13 +40,13 @@ class Cache:
             return None
 
         #check if analysis expired
-        if datetime.datetime.now() - self._content[url]["last analysis date"] >= maxage:
+        if datetime.datetime.now() - datetime.datetime.fromtimestamp(self._content[url]["last analysis date"], tz=datetime.timezone.utc) >= maxage:
             del self._content[url]
         #TODO: how to save?
             return None
 
-        #retrieve info
-        last_analysis_date = self._content[url]["last analysis date"]
+        #give information
+        last_analysis_date = datetime.datetime(self._content[url]["last analysis date"])
         last_analysis_results = self._content[url]["last analysis results"]
         return last_analysis_date, last_analysis_results
 

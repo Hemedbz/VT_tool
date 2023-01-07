@@ -3,22 +3,19 @@ import requests
 
 class VTAnalyzer:
 
-    def __init__(self):
-        self._cache = {}
-        self._api_key = open("vt_api.txt").read()
+    def __init__(self, apikey=open("vt_api.txt").read()):
+        self._api_key = apikey
 
-    def _check_reputation_for_single_url(self, url :str):
-        # last_analysis_date
+    def get_reputation_for_url(self, url :str):
+
+        #if doesn't exist, scan and check again
+
+        #return: {"last analysis date" : last_analysis_date,
+#       "last analysis results" : last_analysis_results}
 
         pass
 
-    def get_urls_reputation(self, urls :list):
-        pass
-    #use multi-threading for each url
-    #which means- locks
-    #save the result to avoid waisted calls to api -> caching
-
-    def scan_single_url(self, url) -> bool: #200/400
+    def scan_url(self, url) -> bool: #200/400
         pass
 
 
@@ -29,6 +26,3 @@ class VTAnalyzer:
 #   --form url=<Your URL here>
 #   --header 'x-apikey: <your API key>'
 #
-
-with open ("vt_api.txt") as fh:
-    api_key = fh.read()
