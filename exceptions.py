@@ -12,3 +12,6 @@ class NoFile(Exception):
 
 class FailedToSave(Exception):
     pass
+
+class UnexpectedError(Exception):
+    pass
