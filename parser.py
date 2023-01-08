@@ -1,6 +1,6 @@
 import argparse
 
-parser = argparse.ArgumentParser(prog="VT Tool", description="Enter urls, separated with comma no space, to check their safety analysis in virustotal.com. \n"
+parser = argparse.ArgumentParser(prog="VTTool", description="Enter urls, separated with comma no space, to check their safety analysis in virustotal.com. \n"
                                                              "The program will return analysis results.\n"
                                                              "-s or --scan | optional | will force new analysis scan."
                                                              "-a or --apikey | should be followed by your api key."
