@@ -1,3 +1,4 @@
+import datetime
 import parser
 from cache import Cache
 from vt_analyzer import VTAnalyzer
@@ -27,9 +28,11 @@ if __name__ == '__main__':
     #present result nicely
     printable = []
     for future in futures:
+        last_analysis_date = datetime.datetime.strftime(datetime.datetime.fromtimestamp(future["Last analysis date"], tz=datetime.timezone.utc), "%Y-%m%-%d")
+        last_analysis_results = future["Last analysis results"]
         presentable_string = f"Virus Total analysis for {url}:\n" \
-                             f"analysis date: {}\n" \
-                             f"analysis results:{}\n"
+                             f"analysis date: {last_analysis_date}\n" \
+                             f"analysis results:{last_analysis_results}\n"
         printable.append(presentable_string)
 
     print("\n".join(printable))
