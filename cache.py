@@ -3,6 +3,7 @@ import datetime
 from threading import Lock
 import exceptions
 
+
 class Cache:
 
     def __init__(self, file_name):
@@ -23,7 +24,7 @@ class Cache:
                 self._content = json.load(fh)
                 self._lock.release()
         except:
-           exceptions.NoFile()
+            exceptions.NoFile()
 
     def put(self, url, new_information):
         """
@@ -40,7 +41,7 @@ class Cache:
                 json.dump(self._content, fh)
                 self._lock.release()
         except:
-          exceptions.FailedToSave()
+            exceptions.FailedToSave()
 
     def get_info(self, url: str, maxage: int):
         """gets information about url from cache file, if the data is still valid
@@ -56,16 +57,21 @@ class Cache:
             return None
 
         # check if information still valid
-        if datetime.datetime.now() - datetime.datetime.fromtimestamp(self._content[url]["last analysis date"], tz=datetime.timezone.utc) >= maxage:
+        today = datetime.datetime.now(tz=datetime.timezone.utc)
+        analysis_day = datetime.datetime.fromtimestamp(self._content[url]["Last analysis date"],
+                                                       tz=datetime.timezone.utc)
+        delta = int((today - analysis_day).days)
+        if delta >= maxage:
             self._lock.acquire()
             del self._content[url]
-            try:
-                with open(f"{file_name}.json", "w") as fh:
-                    json.dump(self._content, fh)
-                self._lock.release()
-                return None
-            except:
+        try:
+            with open(f"{self._file_name}.json", "w") as fh:
+                json.dump(self._content, fh)
+            self._lock.release()
+            return None
+
+        except:
                 exceptions.FailedToSave()
 
-        #give information
+        # give information
         return self._content[url]

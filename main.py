@@ -1,3 +1,4 @@
+#imports
 import datetime
 import parser
 from cache import Cache
@@ -22,8 +23,8 @@ if __name__ == '__main__':
     vt_analyzer = VTAnalyzer(apikey)
 
     # run tool - get information about urls
-    with ThreadPoolExecutor as executor:
-        futures = [executor.submit(vt_tool_for_single_url(url, maxage, local_cache, vt_analyzer, scan)) for url in urls]
+    with ThreadPoolExecutor(max_workers=3) as executor:
+        futures = [executor.submit(vt_tool_for_single_url, url, maxage, local_cache, vt_analyzer, scan) for url in urls]
 
     #present result nicely
     printable = []

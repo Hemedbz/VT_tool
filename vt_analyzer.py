@@ -8,8 +8,8 @@ class VTAnalyzer:
     def __init__(self, apikey):
         self._api_key = apikey
         self._header = {"accept": "application/json",
-                       "content-type": "application/x-www-form-urlencoded",
-                       "x-apikey": self._api_key}
+                        "content-type": "application/x-www-form-urlencoded",
+                        "x-apikey": self._api_key}
 
     def get_analysis(self, url):
         """
@@ -46,8 +46,11 @@ class VTAnalyzer:
 
         if data is None:
             scanned = self.scan_url(url)
-            if scanned:
-                data = self.get_analysis(url)
+            if not scanned:
+                return "Unable to scan"
+
+        data = self.get_analysis(url)
+
 
         last_analysis_date = data["data"]["attributes"]["last_analysis_date"]
         last_analysis_results = data["data"]["attributes"]["last_analysis_stats"]
