@@ -13,5 +13,8 @@ class NoFile(Exception):
 class FailedToSave(Exception):
     pass
 
+class BadRequestError(Exception):
+    pass
+
 class UnexpectedError(Exception):
     pass

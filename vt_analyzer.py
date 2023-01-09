@@ -35,7 +35,7 @@ class VTAnalyzer:
         if response.status_code == 200:
             return True
         else:
-            raise exceptions.ResponseError
+            return False
 
     def get_reputation_for_url(self, url: str):
         """
@@ -45,7 +45,7 @@ class VTAnalyzer:
         data = self.get_analysis(url)
 
         if data is None:
-            scanned = self.scan_url()
+            scanned = self.scan_url(url)
             if scanned:
                 data = self.get_analysis(url)
 
