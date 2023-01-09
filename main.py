@@ -1,4 +1,3 @@
-#imports
 import datetime
 import parser
 from cache import Cache
@@ -28,9 +27,9 @@ if __name__ == '__main__':
 
     #present result nicely
     printable = []
-    for future in futures:
-        last_analysis_date = datetime.datetime.strftime(datetime.datetime.fromtimestamp(future["Last analysis date"], tz=datetime.timezone.utc), "%Y-%m%-%d")
-        last_analysis_results = future["Last analysis results"]
+    for url in urls:
+        last_analysis_date = datetime.datetime.strftime(datetime.datetime.fromtimestamp(local_cache.display_cache()[url]["Last analysis date"], tz=datetime.timezone.utc), "%Y-%m%-%d")
+        last_analysis_results = local_cache.display_cache()[url]["Last analysis results"]
         presentable_string = f"Virus Total analysis for {url}:\n" \
                              f"analysis date: {last_analysis_date}\n" \
                              f"analysis results:{last_analysis_results}\n"

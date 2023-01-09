@@ -64,14 +64,18 @@ class Cache:
         if delta >= maxage:
             self._lock.acquire()
             del self._content[url]
-        try:
-            with open(f"{self._file_name}.json", "w") as fh:
-                json.dump(self._content, fh)
-            self._lock.release()
-            return None
+            try:
+                with open(f"{self._file_name}.json", "w") as fh:
+                    json.dump(self._content, fh)
+                self._lock.release()
+                return None
 
-        except:
+            except:
                 exceptions.FailedToSave()
 
         # give information
         return self._content[url]
+
+    def display_cache(self):
+        self._load_json()
+        return self._content

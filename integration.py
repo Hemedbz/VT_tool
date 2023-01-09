@@ -27,6 +27,6 @@ def vt_tool_for_single_url (url: str, max_age: int, local_cache: Cache, vt_a: VT
             local_cache.put(url, new_info)
 
         else:
-            new_info = local_cache.get_info(url, max_age)
+            new_info = from_cache
 
     return new_info
