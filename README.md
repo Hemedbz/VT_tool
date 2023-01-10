@@ -1,13 +1,5 @@
 # VT_tool
-command line tool to access Virus Toal API (w/Python3)
-
-## Modules
-- `parser` interacts with command line
-- `cache` defines the Cache class, which interacts with local json file
-- `vt_analyzer` defines VTAnalyzer class, which interacts with API
-- `exceptions` defines all exceptions in module
-- `integration` integrates all of the above to one flow function
--  `main` is the file to use
+command line tool to access Virus Total API (w/Python3)
 
 ## How to use
 in command line, run with python3, 
@@ -15,6 +7,13 @@ in command line, run with python3,
 - optional: `-s` forces scanning for new analysis for URL.
 - `-a`: to be followed with api key
 - optional: `-m`: followed by maximum acceptable age for existing analysis, in days as int
+
+## Modules
+-  `main` is the file to use
+- `parser` defines args from command line
+- - `vt_analyzer` defines VTAnalyzer class, get analysis for URL
+- `cache` defines the Cache class, which interacts with local json file
+- `exceptions` defines all exceptions in module
 
 ## Requirements
 The program runs on Python 3.10 but should be compatible to all Python 3.
