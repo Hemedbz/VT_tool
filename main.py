@@ -1,9 +1,6 @@
-import datetime
 import parser
-from cache import Cache
 from vt_analyzer import VTAnalyzer
 from concurrent.futures import ThreadPoolExecutor
-from integration import vt_tool_for_single_url
 
 if __name__ == '__main__':
 
@@ -14,25 +11,16 @@ if __name__ == '__main__':
     maxage = parser.args.maxage
 
     if apikey is None:
-        with open ("vt_api.txt", "r") as fh:
+        with open("vt_api.txt", "r") as fh:
             apikey = fh.read()
 
-    # create instances
-    local_cache = Cache("vt_tool_cache")
-    vt_analyzer = VTAnalyzer(apikey)
+    # create instance
+    vt_analyzer = VTAnalyzer(apikey, maxage, scan)
 
-    # run tool - get information about urls
+    # run function - get information about urls
     with ThreadPoolExecutor(max_workers=3) as executor:
-        futures = [executor.submit(vt_tool_for_single_url, url, maxage, local_cache, vt_analyzer, scan) for url in urls]
+        futures = [executor.submit(vt_analyzer.get_analysis, url) for url in urls]
 
-    #present result nicely
-    printable = []
+    # present result nicely
     for url in urls:
-        last_analysis_date = datetime.datetime.strftime(datetime.datetime.fromtimestamp(local_cache.display_cache()[url]["Last analysis date"], tz=datetime.timezone.utc), "%Y-%m%-%d")
-        last_analysis_results = local_cache.display_cache()[url]["Last analysis results"]
-        presentable_string = f"Virus Total analysis for {url}:\n" \
-                             f"analysis date: {last_analysis_date}\n" \
-                             f"analysis results:{last_analysis_results}\n"
-        printable.append(presentable_string)
-
-    print("\n".join(printable))
+        print(vt_analyzer.display_analysis(url))
