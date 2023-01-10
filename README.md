@@ -11,7 +11,7 @@ in command line, run with python3,
 ## Modules
 -  `main` is the file to use
 - `parser` defines args from command line
-- - `vt_analyzer` defines VTAnalyzer class, get analysis for URL
+- `vt_analyzer` defines VTAnalyzer class, get analysis for URL
 - `cache` defines the Cache class, which interacts with local json file
 - `exceptions` defines all exceptions in module
 
